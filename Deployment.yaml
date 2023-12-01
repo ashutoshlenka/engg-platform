@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: practice-app
+  name: practice-app_deploy
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: your-app
+      app: practice-app
   template:
     metadata:
       labels:
