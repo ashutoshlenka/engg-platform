@@ -1,0 +1,21 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: Practice-app_securitypolicy
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  runAsUser:
+    rule: MustRunAs
+    ranges:
+    - min: 1000
+      max: 1000
+  seLinux:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  volumes:
+  - '*'
+  readOnlyRootFilesystem: false
