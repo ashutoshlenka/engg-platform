@@ -25,7 +25,7 @@ jobs:
         docker push Ashutosh1999/practice-app:latest
 
     - name: Deploy to k8s
-      if: github.event_name != 'push' || github.ref_name != 'refs/heads/test'
+      if: github.event_name != 'push' || github.ref_name != 'refs/heads/main'
       run: |
         kubectl apply -f Service.yaml
         kubectl apply -f Deployment.yaml 
