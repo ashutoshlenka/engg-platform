@@ -1,0 +1,31 @@
+name: Docker CI/CD
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!test'
+    paths:
+      - '**/*.js'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set Branch Name as Environment Variable
+      run: echo "DEPLOYED_FROM=${{ github.event_name }}-${{ github.ref_name }}" >> $GITHUB_ENV
+
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t your-docker-username/practice-app-name:latest .
+        docker push your-docker-username/practice-app-name:latest
+
+    - name: Deploy to Kubernetes
+      if: github.event_name != 'push' || github.ref_name != 'refs/heads/test'
+      run: |
+        # Your deployment script goes here
+        kubectl apply -f your-k8s-manifests/
